@@ -28,6 +28,7 @@ public class LoginStepdef extends BaseUtil {
         System.out.println("1- Comienza el test\n");
         base.Driver.navigate().to("http://www.google.com");
         base.Driver.findElement();
+        //My example from my personal computer
     }
 
     @And("^I click Login button$")
