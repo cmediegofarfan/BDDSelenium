@@ -4,14 +4,14 @@ import Base.BaseUtil;
 import Transformation.EmailTransform;
 import Transformation.SalaryCountTransform;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.Transform;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import javafx.scene.chart.PieChart;
+import org.apache.http.util.Asserts;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoginStepdef extends BaseUtil {
@@ -26,35 +26,39 @@ public class LoginStepdef extends BaseUtil {
     public void iNavigateFbPage() throws Throwable {
 
         System.out.println("1- Comienza el test\n");
-        base.Driver.navigate().to("http://www.google.com");
+        base.Driver.navigate().to("http://www.executeautomation.com/demosite/Login.html");
         //My example from my personal computer
     }
 
     @And("^I click Login button$")
     public void iClickLoginButton() throws Throwable {
-        System.out.println("3- Second AND: I click Login button\n");
+        base.Driver.findElement(By.name("Login")).submit();
+        System.out.println("3- It's clicked the button submit \n");
     }
 
     @Then("^I should see my personal wall$")
     public void iShouldSeeMyPersonalWall() throws Throwable {
-        //System.out.println("4- THEN, the driver is: "+base.StepInfo);
+        Assert.assertEquals("it wasn't properly loaded",base.Driver.findElement(By.id("Initial")).isDisplayed(),true);
+
     }
 
 
-    @And("^I enter the following for login$")
+    /*@And("^I enter the following for login$")
     public void iEnterTheFollowingForLogin(DataTable table) throws Throwable {
-//        List<List<String>> data = table.raw();
-//        System.out.println("2- Primer dato: "+data.get(0).get(0).toString()+"  Segundo Dato: "+data.get(0).get(1).toString());
         //Create an ArrayList
         List<UserData> users = table.asList(UserData.class);
         for (UserData user: users){
-                    System.out.println("The nickname: "+user.nickname+" - Su password: "+user.password1+"\n");
+            base.Driver.findElement(By.name("UserName")).sendKeys(user.nickname);
+            base.Driver.findElement(By.name("Password")).sendKeys(user.password1);
+            System.out.println("The nickname: "+user.nickname+" - Su password: "+user.password1+"\n");
                 }
 
-    }
+    }*/
 
     @And("^I enter ([^\"]*) and ([^\"]*)$")
     public void iEnterUsernameAndPass(String username, String pass) throws Throwable {
+        base.Driver.findElement(By.name("UserName")).sendKeys(username);
+        base.Driver.findElement(By.name("Password")).sendKeys(pass);
         System.out.println("Nombre usuario: "+username+" - Pass: "+pass);
     }
 

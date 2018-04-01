@@ -1,15 +1,4 @@
-Feature: Login in Facebook.com
-  This login delas with the login funtionality of the app
-
-  Scenario: Login with the proper credentials
-    Given I navigate fb page
-    And I enter the following for login
-      |nickname|password1|
-      |riverdiego|diego1111|
-    And I click Login button
-    And I create an email using the nickname
-    Then I should see my personal wall
-
+Feature: Login in ea.com
 
   Scenario Outline: Login with several account Outline scenario
     Given I navigate fb page
