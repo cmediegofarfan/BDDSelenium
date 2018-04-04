@@ -31,7 +31,7 @@ public class Hook extends BaseUtil {
             System.out.println("Failed scenario: "+scenario.getName());
         }
         System.out.println("Closing the browser\n");
-        Driver.close();
+        base.Driver.close();
     }
 
 }

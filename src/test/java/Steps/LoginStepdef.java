@@ -1,6 +1,7 @@
 package Steps;
 
 import Base.BaseUtil;
+import Pages.LoginScreen;
 import Transformation.EmailTransform;
 import Transformation.SalaryCountTransform;
 import cucumber.api.DataTable;
@@ -11,6 +12,7 @@ import cucumber.api.java.en.Then;
 import org.apache.http.util.Asserts;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import sun.rmi.log.LogInputStream;
 
 import java.util.List;
 
@@ -32,7 +34,8 @@ public class LoginStepdef extends BaseUtil {
 
     @And("^I click Login button$")
     public void iClickLoginButton() throws Throwable {
-        base.Driver.findElement(By.name("Login")).submit();
+        LoginScreen page = new LoginScreen(base.Driver);
+        page.ClickLoginbtn();
         System.out.println("3- It's clicked the button submit \n");
     }
 
@@ -42,24 +45,11 @@ public class LoginStepdef extends BaseUtil {
 
     }
 
-
-    /*@And("^I enter the following for login$")
-    public void iEnterTheFollowingForLogin(DataTable table) throws Throwable {
-        //Create an ArrayList
-        List<UserData> users = table.asList(UserData.class);
-        for (UserData user: users){
-            base.Driver.findElement(By.name("UserName")).sendKeys(user.nickname);
-            base.Driver.findElement(By.name("Password")).sendKeys(user.password1);
-            System.out.println("The nickname: "+user.nickname+" - Su password: "+user.password1+"\n");
-                }
-
-    }*/
-
     @And("^I enter ([^\"]*) and ([^\"]*)$")
     public void iEnterUsernameAndPass(String username, String pass) throws Throwable {
-        base.Driver.findElement(By.name("UserName")).sendKeys(username);
-        base.Driver.findElement(By.name("Password")).sendKeys(pass);
-        System.out.println("Nombre usuario: "+username+" - Pass: "+pass);
+        LoginScreen page = new LoginScreen(base.Driver);
+        page.Login(username,pass);
+        System.out.println("2- Nombre usuario: "+username+" - Pass: "+pass);
     }
 
     @And("^I create an email using the ([^\"]*)$")
@@ -73,8 +63,6 @@ public class LoginStepdef extends BaseUtil {
         System.out.println("This is the count: "+salary);
 
     }
-
-
 
     public class UserData
         {
