@@ -8,7 +8,6 @@ Feature: Login in ea.com
     Then I should see my personal wall
 
     Examples:
-      |username|pass|
-      |admin|1234|
-      |diego|pass1234|
-      |root|root|
+      |username   |pass|
+      |admin      |1234|
+     
