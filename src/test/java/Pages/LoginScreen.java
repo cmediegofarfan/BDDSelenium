@@ -13,23 +13,21 @@ public class LoginScreen {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(how = How.NAME, using= "UserName")
-    public WebElement txtUserName;
+    @FindBy(how = How.ID, using= "email")
+    public WebElement txtEmail;
 
-    @FindBy(how = How.NAME, using= "Password")
+    @FindBy(how = How.ID, using= "password")
     public WebElement txtPassword;
 
-    @FindBy(how = How.NAME, using= "Login")
+    @FindBy(how = How.ID, using= "email-next")
     public WebElement btnLogin;
 
 
-    public void Login (String userName, String password){
-        txtUserName.sendKeys(userName);
-        txtPassword.sendKeys(password);
+    public void NextLogin(String userEmail){
+        txtEmail.sendKeys(userEmail);
+        btnLogin.click();
     }
 
-    public void ClickLoginbtn(){
-        btnLogin.submit();
     }
 
 
@@ -37,5 +35,3 @@ public class LoginScreen {
 
 
 
-
-}
