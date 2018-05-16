@@ -1,12 +1,11 @@
-Feature: Login in ea.com
+Feature: Login to touchdesigner.navisdrive.com
 
-  Scenario Outline: Login with several account Outline scenario
-    Given I navigate fb page
-    And I enter <username>
-    And I verify the count of my salary digits for rs 10000
-    And I click Login button
-    Then I should see my personal wall
+  Scenario Outline: Login with navis profile
+    Given I navigate Navis profile page
+    And I enter <account> and <profile>
+    Then I verify the count of my salary digits for rs javoCme%3825
+
 
     Examples:
-      |username|
-      |boyanjavier@gmail.com|
+      |account|profile|
+      |1005|9998|

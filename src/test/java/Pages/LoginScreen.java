@@ -28,6 +28,10 @@ public class LoginScreen {
         btnLogin.click();
     }
 
+    public  void CompletePassword(String password){
+        txtPassword.sendKeys(password);
+    }
+
     }
 
 

@@ -1,16 +1,15 @@
 package Steps;
 
 import Base.BaseUtil;
-import Pages.LoginScreen;
-import Transformation.EmailTransform;
-import Transformation.SalaryCountTransform;
-import cucumber.api.PendingException;
-import cucumber.api.Transform;
+import Pages.HomeScreen;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import org.junit.Assert;
-import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.Set;
+
 
 public class LoginStepdef extends BaseUtil {
 
@@ -20,60 +19,41 @@ public class LoginStepdef extends BaseUtil {
         this.base = base;
     }
 
-    @Given("^I navigate fb page$")
-    public void iNavigateFbPage() throws Throwable {
+    @Given("^I navigate Navis profile page$")
+    public void i_navigate_Navis_profile_page() throws Throwable {
 
         System.out.println("1- Comienza el test\n");
-        base.Driver.navigate().to("http://touchdesigner.navisdrive.com/");
-    }
+        base.Driver.get("https://touchdesigner.navisdrive.com");
 
 
-
-    @And("^I enter ([^\"]*)$")
-    public void iEnterUsername(String username) throws Throwable {
-        LoginScreen page = new LoginScreen(base.Driver);
-        page.NextLogin(username);
-        System.out.println("2- Nombre usuario: "+username);
-    }
-
-    @And("^I click Login button$")
-    public void iClickLoginButton() throws Throwable {
-        LoginScreen page = new LoginScreen(base.Driver);
-        //page.ClickNextbtn();
-        System.out.println("3- It's clicked the button submit \n");
-    }
-
-    @Then("^I should see my personal wall$")
-    public void iShouldSeeMyPersonalWall() throws Throwable {
-        Assert.assertEquals("it wasn't properly loaded",base.Driver.findElement(By.id("Initial")).isDisplayed(),true);
-
-    }
+       /* base.Driver.get("www.google.com");
 
 
-    @And("^I create an email using the ([^\"]*)$")
-    public void iCreateAnEmailUsingTheNickname(@Transform(EmailTransform.class) String email) throws Throwable {
-        System.out.println("This is your new email: "+email);
+        Set<Cookie> cookiesList = base.Driver.manage().getCookies();
+        base.Driver.quit();
 
-    }
-
-    @And("^I verify the count of my salary digits for rs (\\d+)$")
-    public void iVerifyTheCountOfMySalaryDigitsForRs(@Transform(SalaryCountTransform.class) int salary) throws Throwable {
-        System.out.println("This is the count: "+salary);
-
-    }
-
-
-
-    public class UserData
-        {
-            public String nickname;
-            public String password1;
-
-            public UserData(String nickName, String passWord) {
-                nickname = nickName;
-                password1 = passWord;
-            }
+        for (Cookie mycookie: cookiesList){
+        base.Driver.manage().addCookie(mycookie);
         }
+        base.Driver = new ChromeDriver();
+*/
 
+
+    }
+
+
+    @And("^I enter ([^\"]*) and ([^\"]*)$")
+    public void iEnterUsername(String account, String profile) throws Throwable {
+        HomeScreen page = new HomeScreen(base.Driver);
+        page.SelectProfile(account,profile);
+        System.out.println("2- Going to home");
+    }
+
+
+    @Then("^I verify the count of my salary digits for rs ([^\"]*)$")
+    public void iVerifyTheCountOfMySalaryDigitsForRs(String passWord) throws Throwable {
+        System.out.println("This is the password: "+passWord);
+
+    }
     }
 
