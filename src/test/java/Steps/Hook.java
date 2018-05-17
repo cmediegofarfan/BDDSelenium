@@ -21,26 +21,15 @@ public class Hook extends BaseUtil {
 
     @Before
     public void InitializeTest (){
-        //using a dummy webdriver
-        //base.StepInfo = "FirefoxWebDriver";
-
-
-        /*DesiredCapabilities options = DesiredCapabilities.chrome();
-        String userProfile = "C:\\Users\\dfarfan\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1\\";
-        ArrayList<String> switches = new ArrayList<String>();
-        switches.add("--user-data-dir="+userProfile);
-        options.setCapability("chrome.switches",switches);*/
-
-
-
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        String userProfile = "C:\\Users\\dfarfan\\AppData\\Local\\Google\\Chrome\\User Data\\";
         options.addArguments("chrome.options", "--disable-extensions");
-        options.addArguments("user-data-dir="+userProfile);
+
+        //options.addArguments("user-data-dir="+userProfile);
         options.addArguments("--start-maximixed");
 
         base.Driver = new ChromeDriver(options);
+        base.Driver.manage().window().maximize();
         System.out.println("Opening the browser: Firefox\n");
 
     }

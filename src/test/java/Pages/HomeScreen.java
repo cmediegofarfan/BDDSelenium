@@ -12,8 +12,15 @@ public class HomeScreen {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy (how = How.ID, using = "ctl00_Content_Main_lstAccountList_I")
+    @FindBy (how = How.ID, using = "ctl00_Content_Main_lstAccountList")
     public WebElement navisAccount;
+
+
+    @FindBy (how = How.ID, using = "ctl00_Content_Main_lstAccountList_DDD_L_LBI20T0")
+    public WebElement selection;
+
+    @FindBy (how = How.ID, using = "ctl00_Content_Main_lstAccountList_B-1Img")
+    public WebElement arrowbtn;
 
     @FindBy (how = How.ID, using = "ctl00_Content_Main_lstAgents_I")
     public WebElement navisProfile;
@@ -22,9 +29,12 @@ public class HomeScreen {
     public WebElement selectBtn;
 
     public void SelectProfile (String accountN, String profileN){
+        navisAccount.click();
         navisAccount.sendKeys(accountN);
-        navisProfile.sendKeys(profileN);
-        selectBtn.click();
+
+        navisAccount.click();
+        System.out.println(accountN+"   -  "+profileN);
+
     }
 
 }

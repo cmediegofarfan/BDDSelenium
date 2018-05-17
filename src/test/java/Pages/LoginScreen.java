@@ -22,6 +22,12 @@ public class LoginScreen {
     @FindBy(how = How.ID, using= "email-next")
     public WebElement btnLogin;
 
+    @FindBy(how = How.XPATH, using= "//*[@id=\"u_0_2\"]")
+    public WebElement loginBtn;
+
+
+
+
 
     public void NextLogin(String userEmail){
         txtEmail.sendKeys(userEmail);
@@ -31,6 +37,18 @@ public class LoginScreen {
     public  void CompletePassword(String password){
         txtPassword.sendKeys(password);
     }
+
+
+    @FindBy(how = How.ID, using= "pass")
+    public WebElement passwordFB;
+
+    public void Fblogin(String user, String pass){
+        txtEmail.sendKeys(user);
+        passwordFB.sendKeys(pass);
+        loginBtn.click();
+
+    }
+
 
     }
 
