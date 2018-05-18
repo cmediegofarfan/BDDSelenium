@@ -1,10 +1,21 @@
-Feature: Login to touchdesigner.navisdrive.com
+Feature: Smoke test - Demo
 
-  Scenario Outline: Login with navis profile
+  Scenario Outline: Opening Image Library
     Given I navigate Navis profile page
-    Then I verify the count of my salary digits for rs javoCme%3825
     And I enter <account> and <profile>
+    And I go to Image Library
+    Then Image Library is properly opened
 
     Examples:
       |account|profile|
-      |1005|9998|
+      |QA1005 - QA1005 - Scott QA Test|9998 - NAVIS Tech Support|
+
+  Scenario Outline: Opening View existing messages
+    Given I navigate Navis profile page
+    And I enter <account> and <profile>
+    And I go to View existing messages
+    Then View existing messages is properly opened
+
+    Examples:
+      |account|profile|
+      |QA1005 - QA1005 - Scott QA Test|9998 - NAVIS Tech Support|

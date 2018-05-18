@@ -2,13 +2,16 @@ package Steps;
 
 import Base.BaseUtil;
 import Pages.HomeScreen;
+import Pages.ImageLibraryScreen;
 import Pages.LoginScreen;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import Pages.ViewExistingMessagesScreen;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -29,28 +32,7 @@ public class LoginStepdef extends BaseUtil {
     @Given("^I navigate Navis profile page$")
     public void i_navigate_Navis_profile_page() throws Throwable {
 
-        System.out.println("1- Comienza el test\n");
-        //base.Driver.get("https://touchdesigner.navisdrive.com");
-        base.Driver.get("http://www.fb.com/");
-
-
-    }
-
-
-    @And("^I enter ([^\"]*) and ([^\"]*)$")
-    public void iEnterUsername(String account, String profile) throws Throwable {
-        HomeScreen page = new HomeScreen(base.Driver);
-        base.Driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        page.SelectProfile(account,profile);
-        System.out.println("2- Going to home");
-    }
-
-
-    @Then("^I verify the count of my salary digits for rs ([^\"]*)$")
-    public void iVerifyTheCountOfMySalaryDigitsForRs(String passWord) throws Throwable {
-        System.out.println("This is the password: "+passWord);
-        base.Driver.close();
-        base.Driver = new ChromeDriver();
+        System.out.println("1- Comienza el test abriendo el browser\n");
         base.Driver.navigate().to("http://www.google.com/");
         try{
             File myProfile = new File("Cookies.data");
@@ -85,9 +67,30 @@ public class LoginStepdef extends BaseUtil {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        //base.Driver.navigate().to("http://www.fb.com/");
-        base.Driver.navigate().to("https://touchdesigner.navisdrive.com");
+        base.Driver.get("https://touchdesigner.navisdrive.com");
+        //base.Driver.get("https://www.navisdrive.com/mainmenu/Impersonate.aspx?account=&url=https://touchdesigner.navisdrive.com/callback?referrer=/");
 
+    }
+
+
+    @And("^I enter ([^\"]*) and ([^\"]*)$")
+    public void iEnterUsername(String account, String profile) throws Throwable {
+        HomeScreen page = new HomeScreen(base.Driver);
+        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(page.navisAccount));
+        wait.until(ExpectedConditions.elementToBeClickable(page.navisProfile));
+        page.SelectProfile(account,profile);
+        System.out.println("2.1- Going to Navis's Dashboard");
+    }
+
+
+    @Then("^I verify the count of my salary digits for rs ([^\"]*)$")
+    public void iVerifyTheCountOfMySalaryDigitsForRs(String passWord) throws Throwable {
+        System.out.println("This is the end: "+passWord);
+        for (Cookie ck: base.Driver.manage().getCookies()){
+
+            System.out.println(ck);
+        }
 
     }
 
@@ -99,7 +102,7 @@ public class LoginStepdef extends BaseUtil {
 
     }
 
-
+    //To create the cookie.data file in order to save the session's cookies
     @And("^I fill ([^\"]*) and ([^\"]*)$")
     public void iFillUsername(String account, String profile) throws Throwable {
         LoginScreen page = new LoginScreen(base.Driver);
@@ -132,5 +135,35 @@ public class LoginStepdef extends BaseUtil {
         base.Driver.get("https://www.google.com");
 
     }
+
+    @And("^I go to Image Library$")
+    public void i_Go_To_Image_Library() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
+        ImageLibraryScreen imageLibrary = new ImageLibraryScreen(base.Driver);
+        wait.until(ExpectedConditions.visibilityOf(imageLibrary.linkImageLibrary));
+        Set<String> test = base.Driver.getWindowHandles();
+        imageLibrary.GoToImageLibrary();
     }
+
+    @Then("^Image Library is properly opened$")
+    public void image_Library_Is_Properly_Opened() throws Throwable {
+
+        System.out.println("llegamos!");
+    }
+
+    @And("^I go to View existing messages$")
+    public void iGoToViewExistingMessages() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
+        ViewExistingMessagesScreen viewMessages = new ViewExistingMessagesScreen(base.Driver);
+        wait.until(ExpectedConditions.visibilityOf(viewMessages.designerbtn));
+        Set<String> test = base.Driver.getWindowHandles();
+        viewMessages.GoToViewExistingMessages();
+        //*[@id="app"]/div/div[1]/nav/ul/li[2]/div/span
+    }
+
+    @Then("^View existing messages is properly opened$")
+    public void viewExistingMessagesIsProperlyOpened() throws Throwable {
+        System.out.println("Entro 10 puntos al viewer");
+    }
+}
 
