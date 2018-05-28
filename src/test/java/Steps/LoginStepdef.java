@@ -32,8 +32,9 @@ public class LoginStepdef extends BaseUtil {
     @Given("^I navigate Navis profile page$")
     public void i_navigate_Navis_profile_page() throws Throwable {
 
-        System.out.println("1- Comienza el test abriendo el browser\n");
+        System.out.println("1- Test starts - Browser is opening\n");
         base.Driver.navigate().to("http://www.google.com/");
+        //it charges the cookie within the browser in order to load a session and avoid the login screen
         try{
             File myProfile = new File("Cookies.data");
             FileReader fileReader = new FileReader(myProfile);
@@ -68,7 +69,6 @@ public class LoginStepdef extends BaseUtil {
             ex.printStackTrace();
         }
         base.Driver.get("https://touchdesigner.navisdrive.com");
-        //base.Driver.get("https://www.navisdrive.com/mainmenu/Impersonate.aspx?account=&url=https://touchdesigner.navisdrive.com/callback?referrer=/");
 
     }
 
@@ -84,23 +84,35 @@ public class LoginStepdef extends BaseUtil {
     }
 
 
-    @Then("^I verify the count of my salary digits for rs ([^\"]*)$")
-    public void iVerifyTheCountOfMySalaryDigitsForRs(String passWord) throws Throwable {
-        System.out.println("This is the end: "+passWord);
-        for (Cookie ck: base.Driver.manage().getCookies()){
-
-            System.out.println(ck);
-        }
-
+    @And("^I go to Image Library$")
+    public void i_Go_To_Image_Library() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
+        ImageLibraryScreen imageLibrary = new ImageLibraryScreen(base.Driver);
+        wait.until(ExpectedConditions.visibilityOf(imageLibrary.linkImageLibrary));
+        Set<String> test = base.Driver.getWindowHandles();
+        imageLibrary.GoToImageLibrary();
     }
 
-    @Given("^I navigate to Fb page page$")
-    public void i_navigate_to_Fb_page_page() throws Throwable {
+    @Then("^Image Library is properly opened$")
+    public void image_Library_Is_Properly_Opened() throws Throwable {
 
-        System.out.println("1- Comienza el test\n");
-        base.Driver.get("https://www.fb.com");
-
+        System.out.println("Image Library is opened!");
     }
+
+    @And("^I go to View existing messages$")
+    public void iGoToViewExistingMessages() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
+        ViewExistingMessagesScreen viewMessages = new ViewExistingMessagesScreen(base.Driver);
+        wait.until(ExpectedConditions.visibilityOf(viewMessages.designerbtn));
+        Set<String> test = base.Driver.getWindowHandles();
+        viewMessages.GoToViewExistingMessages();
+    }
+
+    @Then("^View existing messages is properly opened$")
+    public void viewExistingMessagesIsProperlyOpened() throws Throwable {
+        System.out.println("View existing message page is opened");
+    }
+
 
     //To create the cookie.data file in order to save the session's cookies
     @And("^I fill ([^\"]*) and ([^\"]*)$")
@@ -126,44 +138,6 @@ public class LoginStepdef extends BaseUtil {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
-
-    @Given("^I go to google page page$")
-    public void i_go_to_Fb_page_page() throws Throwable {
-
-        System.out.println("1- Comienza el test\n");
-        base.Driver.get("https://www.google.com");
-
-    }
-
-    @And("^I go to Image Library$")
-    public void i_Go_To_Image_Library() throws Throwable {
-        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
-        ImageLibraryScreen imageLibrary = new ImageLibraryScreen(base.Driver);
-        wait.until(ExpectedConditions.visibilityOf(imageLibrary.linkImageLibrary));
-        Set<String> test = base.Driver.getWindowHandles();
-        imageLibrary.GoToImageLibrary();
-    }
-
-    @Then("^Image Library is properly opened$")
-    public void image_Library_Is_Properly_Opened() throws Throwable {
-
-        System.out.println("llegamos!");
-    }
-
-    @And("^I go to View existing messages$")
-    public void iGoToViewExistingMessages() throws Throwable {
-        WebDriverWait wait = new WebDriverWait(base.Driver, 20);
-        ViewExistingMessagesScreen viewMessages = new ViewExistingMessagesScreen(base.Driver);
-        wait.until(ExpectedConditions.visibilityOf(viewMessages.designerbtn));
-        Set<String> test = base.Driver.getWindowHandles();
-        viewMessages.GoToViewExistingMessages();
-        //*[@id="app"]/div/div[1]/nav/ul/li[2]/div/span
-    }
-
-    @Then("^View existing messages is properly opened$")
-    public void viewExistingMessagesIsProperlyOpened() throws Throwable {
-        System.out.println("Entro 10 puntos al viewer");
     }
 }
 
